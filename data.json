@@ -1,0 +1,74 @@
+[
+  {
+    "kode": "M001",
+    "nama": "Pisang Emas",
+    "hargaDasar": "15000",
+    "jenis": "makanan",
+    "stock": "2",
+    "gambar": "uploads\\gambar-1712594109798.jpeg"
+  },
+  {
+    "kode": "T001",
+    "nama": "Red Konchin",
+    "hargaDasar": "20000",
+    "jenis": "tumbuhan",
+    "stock": "1",
+    "gambar": "uploads\\gambar-1712594148640.jpeg"
+  },
+  {
+    "kode": "H001",
+    "nama": "ayam jago",
+    "hargaDasar": "50000",
+    "jenis": "hewan",
+    "stock": "2",
+    "gambar": "uploads\\gambar-1712594188659.jpg"
+  },
+  {
+    "kode": "B001",
+    "nama": "irus",
+    "hargaDasar": "3000",
+    "jenis": "barang",
+    "stock": "10",
+    "gambar": "uploads\\gambar-1712594243225.jpg"
+  },
+  {
+    "kode": "M002",
+    "nama": "beras 8kg",
+    "hargaDasar": "15000",
+    "jenis": "makanan",
+    "stock": "6",
+    "gambar": "uploads\\gambar-1712594337369.jpg"
+  },
+  {
+    "kode": "B002",
+    "nama": "tas",
+    "hargaDasar": "70000",
+    "jenis": "barang",
+    "stock": "2",
+    "gambar": "uploads\\gambar-1712594539253.jpg"
+  },
+  {
+    "kode": "M003",
+    "nama": "waluh",
+    "hargaDasar": "5000",
+    "jenis": "makanan",
+    "stock": "4",
+    "gambar": "uploads\\gambar-1712594925062.jpeg"
+  },
+  {
+    "kode": "B003",
+    "nama": "caping",
+    "hargaDasar": "20000",
+    "jenis": "barang",
+    "stock": "3",
+    "gambar": "uploads\\gambar-1712595145724.jpeg"
+  },
+  {
+    "kode": "B004",
+    "nama": "mause",
+    "hargaDasar": "50000",
+    "jenis": "barang",
+    "stock": "2",
+    "gambar": "uploads\\gambar-1712600621903.jpg"
+  }
+]

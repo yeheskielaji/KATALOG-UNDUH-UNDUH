@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Detail Barang</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <style>
+      .detail-img {
+        width: 100%;
+        max-height: 400px;
+        object-fit: cover;
+      }
+      .detail-text {
+        font-size: 1.2rem;
+        margin-top: 10px;
+        font-weight: bold;
+      }
+      .navbar-custom {
+        background-color: #f8f9fa;
+      }
+      .navbar-brand {
+        font-size: 1.5rem;
+        color: brown;
+        font-weight: bold;
+      }
+      .back-icon {
+        font-size: 1.5rem;
+        color: #495057;
+      }
+      #harga {
+        font-weight: bold;
+        font-size: xx-large;
+        color: green;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-custom">
+      <div class="container-fluid">
+        <a class="navbar-brand" id="nama-barang" href="#">Nama Barang</a>
+        <a class="nav-link" href="index.html">
+          <i class="bi bi-arrow-left back-icon"></i>
+        </a>
+      </div>
+    </nav>
+
+    <div class="container mt-4">
+      <div class="row">
+        <div class="col-md-6">
+          <img src="" alt="Gambar Barang" class="detail-img" id="gambar" />
+        </div>
+        <div class="col-md-6">
+          <p class="detail-text" id="harga">Harga: Rp12.345</p>
+          <p class="detail-text" id="stock">Stock: 10</p>
+          <p class="detail-text" id="kode">Kode: B001</p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function formatRupiah(angka) {
+        return new Intl.NumberFormat("id-ID", {
+          style: "currency",
+          currency: "IDR",
+        }).format(angka);
+      }
+
+      function getQueryVariable(variable) {
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for (var i = 0; i < vars.length; i++) {
+          var pair = vars[i].split("=");
+          if (decodeURIComponent(pair[0]) == variable) {
+            return decodeURIComponent(pair[1]);
+          }
+        }
+        return false;
+      }
+
+      window.onload = function () {
+        var namaBarang = getQueryVariable("nama");
+        var hargaBarang = formatRupiah(getQueryVariable("harga"));
+        var stockBarang = getQueryVariable("stock");
+        var kodeBarang = getQueryVariable("kode");
+        var gambarBarang = getQueryVariable("gambar");
+
+        document.getElementById("nama-barang").textContent =
+          namaBarang || "Nama Barang";
+        document.getElementById("harga").textContent =
+          hargaBarang || "Rp12.345";
+        document.getElementById("stock").textContent =
+          "Stock: " + (stockBarang || "10");
+        document.getElementById("kode").textContent =
+          "Kode Barang: " + (kodeBarang || "B001");
+        document.getElementById("gambar").src =
+          gambarBarang || "default-image.png";
+      };
+    </script>
+
+    <!-- Bootstrap 5.0.2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+  </body>
+</html>
