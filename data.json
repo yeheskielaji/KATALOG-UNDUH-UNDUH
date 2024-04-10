@@ -70,5 +70,13 @@
     "jenis": "barang",
     "stock": "2",
     "gambar": "uploads\\gambar-1712600621903.jpg"
+  },
+  {
+    "kode": "B005",
+    "nama": "asafas",
+    "hargaDasar": "12",
+    "jenis": "barang",
+    "stock": "1",
+    "gambar": "uploads\\gambar-1712756614788.jpg"
   }
 ]
