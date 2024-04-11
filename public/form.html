@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tambah Barang</title>
+    <title>Katalog Lelang Undhuh-Undhuh 2024</title>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico" />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -189,9 +190,7 @@
                 event.preventDefault();
                 event.stopPropagation();
               } else {
-                event.preventDefault(); // Prevent form submission for demo. Remove this line in production.
-                // Simulate a successful form submission
-                successModal.show();
+                event.preventDefault();
               }
               form.classList.add("was-validated");
             },
@@ -201,21 +200,13 @@
       })();
     </script>
 
-    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js"></script>
-
-    <!-- Add Firebase products that you want to use -->
-    <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js"></script>
-
     <script type="module">
-      // Import the functions you need from the SDKs you need
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
       import {
         getAuth,
-        signOut,
+        onAuthStateChanged,
       } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
 
-      // Your web app's Firebase configuration
       const firebaseConfig = {
         apiKey: "AIzaSyBAIZU3KsMnSOOfLhMDgYIsKVgYBctLF08",
         authDomain: "katalog-unduh-unduh.firebaseapp.com",
@@ -226,21 +217,14 @@
         measurementId: "G-K295MXC5Y5",
       };
 
-      // Initialize Firebase
       const app = initializeApp(firebaseConfig);
       const auth = getAuth(app);
 
-      document
-        .getElementById("logout-button")
-        .addEventListener("click", async () => {
-          try {
-            await signOut(auth);
-            console.log("User signed out successfully");
-            window.location.href = "index.html"; // Redirect to login page
-          } catch (error) {
-            console.error("Logout Error:", error);
-          }
-        });
+      onAuthStateChanged(auth, (user) => {
+        if (!user) {
+          window.location.href = "login.html";
+        }
+      });
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
