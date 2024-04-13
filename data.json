@@ -4,8 +4,9 @@
     "nama": "Pisang Emas",
     "hargaDasar": "15000",
     "jenis": "makanan",
-    "stock": "2",
-    "gambar": "uploads\\gambar-1712594109798.jpeg"
+    "stock": "1",
+    "gambar": "uploads\\gambar-1712594109798.jpeg",
+    "keterangan": "3"
   },
   {
     "kode": "T001",
@@ -13,7 +14,8 @@
     "hargaDasar": "20000",
     "jenis": "tumbuhan",
     "stock": "1",
-    "gambar": "uploads\\gambar-1712594148640.jpeg"
+    "gambar": "uploads\\gambar-1712594148640.jpeg",
+    "keterangan": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sollicitudin aliquam ultrices sagittis orci a scelerisque."
   },
   {
     "kode": "H001",
@@ -21,7 +23,8 @@
     "hargaDasar": "50000",
     "jenis": "hewan",
     "stock": "2",
-    "gambar": "uploads\\gambar-1712594188659.jpg"
+    "gambar": "uploads\\gambar-1712594188659.jpg",
+    "keterangan": "1"
   },
   {
     "kode": "B001",
@@ -30,14 +33,6 @@
     "jenis": "barang",
     "stock": "10",
     "gambar": "uploads\\gambar-1712594243225.jpg"
-  },
-  {
-    "kode": "M002",
-    "nama": "beras 8kg",
-    "hargaDasar": "15000",
-    "jenis": "makanan",
-    "stock": "6",
-    "gambar": "uploads\\gambar-1712594337369.jpg"
   },
   {
     "kode": "B002",
@@ -72,11 +67,21 @@
     "gambar": "uploads\\gambar-1712600621903.jpg"
   },
   {
+    "kode": "M004",
+    "nama": "as",
+    "hargaDasar": "15000",
+    "jenis": "makanan",
+    "stock": "2",
+    "gambar": "uploads/gambar-1712939891838.png",
+    "keterangan": "23"
+  },
+  {
     "kode": "B005",
     "nama": "asafas",
-    "hargaDasar": "12",
+    "hargaDasar": "15000",
     "jenis": "barang",
-    "stock": "1",
-    "gambar": "uploads\\gambar-1712756614788.jpg"
+    "stock": "2",
+    "gambar": "uploads/gambar-1712939957237.JPG",
+    "keterangan": "4"
   }
 ]

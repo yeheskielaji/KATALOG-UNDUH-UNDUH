@@ -19,19 +19,10 @@
         font-weight: bold;
         font-size: small;
       }
-
       @media (min-width: 769px) {
         .navbar-brand {
           font-weight: bold;
         }
-      }
-
-      .logout-btn {
-        margin-top: 30px;
-      }
-
-      #logout-button i {
-        color: white;
       }
     </style>
   </head>
@@ -44,7 +35,7 @@
           Katalog Lelang Undhuh-Undhuh 2024
         </a>
         <div class="d-flex">
-          <a class="nav-link" href="index.html">
+          <a class="nav-link" href="edit_data.html">
             <i
               class="bi bi-arrow-left"
               style="color: #495057; font-size: 1.5rem"
@@ -57,13 +48,21 @@
     <!-- Form Tambah Barang -->
     <div class="container mt-3">
       <h1>Form Tambah Barang</h1>
+      <div id="success-alert" class="alert alert-success d-none" role="alert">
+        Data berhasil ditambahkan.
+      </div>
+      <div id="error-alert" class="alert alert-danger d-none" role="alert">
+        Gagal menyimpan data.
+      </div>
       <form
+        id="tambahBarangForm"
         action="/barang/simpan"
         method="POST"
         enctype="multipart/form-data"
         class="needs-validation"
         novalidate
       >
+        <!-- Each form group -->
         <div class="mb-3">
           <label for="nama" class="form-label">Nama Barang:</label>
           <input
@@ -85,12 +84,10 @@
               id="hargaDasar"
               name="hargaDasar"
               required
-              pattern="^\d{1,3}(,\d{3})*(\.\d+)?$"
-              aria-label="Harga dalam Rupiah"
             />
             <span class="input-group-text">.00</span>
+            <div class="invalid-feedback">Masukkan harga dasar barang.</div>
           </div>
-          <div class="invalid-feedback">Masukkan harga dasar barang.</div>
         </div>
         <div class="mb-3">
           <label for="jenis" class="form-label">Jenis Barang:</label>
@@ -123,80 +120,78 @@
             id="gambar"
             name="gambar"
             required
+            accept="image/jpeg, image/jpg, image/png, image/webp"
           />
           <div class="invalid-feedback">Unggah gambar barang.</div>
+        </div>
+        <div class="mb-3">
+          <label for="keterangan" class="form-label">Keterangan:</label>
+          <textarea
+            class="form-control"
+            id="keterangan"
+            name="keterangan"
+            rows="3"
+          ></textarea>
         </div>
         <button type="submit" class="btn btn-primary">Simpan</button>
       </form>
     </div>
 
-    <div class="logout-btn">
-      <button
-        id="logout-button"
-        class="btn btn-danger position-fixed bottom-0 end-0 m-3"
-      >
-        <i class="bi bi-power"></i>
-      </button>
-    </div>
-
-    <!-- Success Modal -->
-    <div
-      class="modal fade"
-      id="successModal"
-      tabindex="-1"
-      aria-labelledby="successModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="successModalLabel">Success</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">Data berhasil ditambahkan.</div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <script>
       (function () {
         "use strict";
-        var forms = document.querySelectorAll(".needs-validation");
+        var form = document.querySelector(".needs-validation");
 
-        // Reference to the Bootstrap modal
-        var successModal = new bootstrap.Modal(
-          document.getElementById("successModal")
-        );
+        function resetForm() {
+          form.reset();
+          Array.from(
+            document.getElementsByClassName("invalid-feedback")
+          ).forEach((element) => {
+            element.style.display = "none";
+          });
+        }
 
-        Array.prototype.slice.call(forms).forEach(function (form) {
-          form.addEventListener(
-            "submit",
-            function (event) {
-              if (!form.checkValidity()) {
-                event.preventDefault();
-                event.stopPropagation();
-              } else {
-                event.preventDefault();
-              }
+        form.addEventListener(
+          "submit",
+          function (event) {
+            event.preventDefault();
+            if (!form.checkValidity()) {
+              event.stopPropagation();
               form.classList.add("was-validated");
-            },
-            false
-          );
-        });
+            } else {
+              fetch("/barang/simpan", {
+                method: "POST",
+                body: new FormData(form),
+              })
+                .then((response) => response.json())
+                .then((data) => {
+                  if (data.status === "success") {
+                    document
+                      .getElementById("success-alert")
+                      .classList.remove("d-none");
+                    document
+                      .getElementById("error-alert")
+                      .classList.add("d-none");
+                    resetForm();
+                  } else {
+                    throw new Error(data.message || "Failed to save data");
+                  }
+                })
+                .catch((error) => {
+                  console.error("Failed to save data: ", error);
+                  document
+                    .getElementById("success-alert")
+                    .classList.add("d-none");
+                  document
+                    .getElementById("error-alert")
+                    .classList.remove("d-none");
+                  document.getElementById("error-alert").textContent =
+                    error.message;
+                });
+            }
+          },
+          false
+        );
       })();
     </script>
 
@@ -227,6 +222,7 @@
       });
     </script>
 
+    <!-- Bootstrap 5.0.2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
   </body>

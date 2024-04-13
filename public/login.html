@@ -98,14 +98,14 @@
       // Check if the user is already logged in and redirect
       onAuthStateChanged(auth, (user) => {
         if (user) {
-          window.location.href = "form.html"; // User is signed in, redirect.
-        } // No need to handle the else case here, if user isn't logged in they remain on the login page.
+          window.location.href = "edit_data.html";
+        }
       });
 
       document
         .getElementById("login-form")
         .addEventListener("submit", async function (event) {
-          event.preventDefault(); // Prevent the default form submission
+          event.preventDefault();
 
           const username = document.getElementById("username").value;
           const password = document.getElementById("password").value;
@@ -114,12 +114,11 @@
           // Set the session persistence
           setPersistence(auth, browserSessionPersistence)
             .then(() => {
-              // Attempt to sign in
               return signInWithEmailAndPassword(auth, username, password);
             })
             .then((userCredential) => {
               console.log("Logged in user:", userCredential.user);
-              window.location.href = "form.html"; // Redirect on successful login
+              window.location.href = "edit_data.html"; // Redirect on successful login
             })
             .catch((error) => {
               console.error("Authentication error:", error);

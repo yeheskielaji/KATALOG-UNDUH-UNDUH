@@ -24,6 +24,11 @@
         margin-top: 10px;
         font-weight: bold;
       }
+      .keterangan-text {
+        font-size: 1rem;
+        margin-top: 10px;
+        text-align: justify;
+      }
       .navbar-custom {
         background-color: #f8f9fa;
       }
@@ -43,7 +48,6 @@
       }
     </style>
   </head>
-
   <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-custom">
@@ -64,6 +68,7 @@
           <p class="detail-text" id="harga">Harga: Rp12.345</p>
           <p class="detail-text" id="stock">Stock: 10</p>
           <p class="detail-text" id="kode">Kode: B001</p>
+          <p class="keterangan-text" id="keterangan"></p>
         </div>
       </div>
     </div>
@@ -81,31 +86,48 @@
         var vars = query.split("&");
         for (var i = 0; i < vars.length; i++) {
           var pair = vars[i].split("=");
-          if (decodeURIComponent(pair[0]) == variable) {
-            return decodeURIComponent(pair[1]);
+          if (decodeURIComponent(pair[0]) === variable) {
+            return decodeURIComponent(pair[1].replace(/\+/g, " "));
           }
         }
-        return false;
+        return null;
       }
 
-      window.onload = function () {
-        var namaBarang = getQueryVariable("nama");
-        var hargaBarang = formatRupiah(getQueryVariable("harga"));
-        var stockBarang = getQueryVariable("stock");
-        var kodeBarang = getQueryVariable("kode");
-        var gambarBarang = getQueryVariable("gambar");
+      function fetchItemDetails() {
+        const kode = getQueryVariable("kode");
+        if (!kode) {
+          alert("Kode barang tidak ditemukan.");
+          return;
+        }
 
-        document.getElementById("nama-barang").textContent =
-          namaBarang || "Nama Barang";
-        document.getElementById("harga").textContent =
-          hargaBarang || "Rp12.345";
-        document.getElementById("stock").textContent =
-          "Stock: " + (stockBarang || "10");
-        document.getElementById("kode").textContent =
-          "Kode Barang: " + (kodeBarang || "B001");
-        document.getElementById("gambar").src =
-          gambarBarang || "default-image.png";
-      };
+        fetch(`/barang/data/${kode}`)
+          .then((response) => response.json())
+          .then((data) => {
+            if (data) {
+              document.getElementById("nama-barang").textContent =
+                data.nama || "Nama Barang";
+              document.getElementById("harga").textContent = formatRupiah(
+                data.hargaDasar || 0
+              );
+              document.getElementById("stock").textContent =
+                "Stock: " + (data.stock || 0);
+              document.getElementById("kode").textContent =
+                "Kode Barang: " + (data.kode || "B001");
+              document.getElementById("gambar").src =
+                data.gambar || "default-image.png";
+              document.getElementById("keterangan").textContent =
+                data.keterangan;
+            } else {
+              alert("Data barang tidak ditemukan.");
+            }
+          })
+          .catch((error) => {
+            console.error("Failed to fetch item details:", error);
+            alert("Error fetching item details: " + error.message);
+          });
+      }
+
+      window.onload = fetchItemDetails;
     </script>
 
     <!-- Bootstrap 5.0.2 JS -->
