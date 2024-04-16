@@ -83,6 +83,8 @@
               class="form-control"
               id="hargaDasar"
               name="hargaDasar"
+              min="1"
+              max="9999999"
               required
             />
             <span class="input-group-text">.00</span>
@@ -109,6 +111,7 @@
             name="stock"
             required
             min="1"
+            max="999"
           />
           <div class="invalid-feedback">Masukkan jumlah stock barang.</div>
         </div>
@@ -136,6 +139,45 @@
         <button type="submit" class="btn btn-primary">Simpan</button>
       </form>
     </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const hargaDasarInput = document.getElementById("hargaDasar");
+        const hargaDasarFeedback = document.querySelector(
+          "#hargaDasar ~ .invalid-feedback"
+        );
+        const stockInput = document.getElementById("stock");
+        const stockFeedback = document.querySelector(
+          "#stock ~ .invalid-feedback"
+        );
+
+        function handleValidation(input, feedback, options) {
+          const { max, maxMessage } = options;
+          if (parseInt(input.value, 10) > max) {
+            input.setCustomValidity(maxMessage);
+            feedback.textContent = maxMessage;
+          } else {
+            input.setCustomValidity("");
+          }
+          input.classList.toggle("is-invalid", !input.validity.valid);
+          feedback.style.display = input.validity.valid ? "none" : "block";
+        }
+
+        hargaDasarInput.addEventListener("input", function () {
+          handleValidation(this, hargaDasarFeedback, {
+            max: 9999999,
+            maxMessage: "Nilai tidak boleh melebihi Rp 9,999,999.00",
+          });
+        });
+
+        stockInput.addEventListener("input", function () {
+          handleValidation(this, stockFeedback, {
+            max: 999,
+            maxMessage: "Stock tidak boleh melebihi 999 unit",
+          });
+        });
+      });
+    </script>
 
     <script>
       (function () {

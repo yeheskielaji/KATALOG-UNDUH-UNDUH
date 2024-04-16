@@ -37,7 +37,7 @@
           Katalog Lelang Undhuh-Undhuh 2024
         </a>
         <div class="d-flex">
-          <a class="nav-link" href="detail_edit.html">
+          <a class="nav-link" id="backButton">
             <i
               class="bi bi-arrow-left"
               style="color: #495057; font-size: 1.5rem"
@@ -84,6 +84,7 @@
             class="form-control"
             id="hargaDasar"
             name="hargaDasar"
+            max="9999999"
             required
           />
           <div class="invalid-feedback">Harga dasar harus diisi.</div>
@@ -96,6 +97,8 @@
             id="stock"
             name="stock"
             required
+            min="1"
+            max="999"
           />
           <div class="invalid-feedback">Stock harus diisi.</div>
         </div>
@@ -113,9 +116,58 @@
     </div>
 
     <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const hargaDasarInput = document.getElementById("hargaDasar");
+        const hargaDasarFeedback = document.querySelector(
+          "#hargaDasar ~ .invalid-feedback"
+        );
+        const stockInput = document.getElementById("stock");
+        const stockFeedback = document.querySelector(
+          "#stock ~ .invalid-feedback"
+        );
+
+        function handleValidation(input, feedback, options) {
+          const { max, maxMessage } = options;
+          if (parseInt(input.value, 10) > max) {
+            input.setCustomValidity(maxMessage);
+            feedback.textContent = maxMessage;
+          } else {
+            input.setCustomValidity("");
+          }
+          input.classList.toggle("is-invalid", !input.validity.valid);
+          feedback.style.display = input.validity.valid ? "none" : "block";
+        }
+
+        hargaDasarInput.addEventListener("input", function () {
+          handleValidation(this, hargaDasarFeedback, {
+            max: 9999999,
+            maxMessage: "Nilai tidak boleh melebihi Rp 9,999,999.00",
+          });
+        });
+
+        stockInput.addEventListener("input", function () {
+          handleValidation(this, stockFeedback, {
+            max: 999,
+            maxMessage: "Stock tidak boleh melebihi 999 unit",
+          });
+        });
+      });
+    </script>
+
+    <script>
       window.onload = function () {
         const params = new URLSearchParams(window.location.search);
         const kode = params.get("kode");
+        if (kode) {
+          document
+            .getElementById("backButton")
+            .setAttribute("href", `edit_data.html?kode=${kode}`);
+        } else {
+          document.getElementById("error-alert").textContent =
+            "Kode barang tidak ditemukan.";
+          document.getElementById("error-alert").classList.remove("d-none");
+        }
+
         if (!kode) {
           document.getElementById("error-alert").textContent =
             "Kode barang tidak ditemukan.";
